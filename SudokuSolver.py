@@ -5,20 +5,20 @@ def get_sudoku(width):
     numSquares = width**2
 
     for i in range(0,numSquares):
-        row = (i // width)+1 # finds row of current square
-        column = int(fmod(i, width)) # find column of current square
-        print("DEBUG:\n    row: "+str(row)+"\ncolumn: "+str(column)) #debug: print squares
+        column = int(fmod(i, width))+1 # finds column (x coord) of current square
+        row = (i // width)+1 # finds row (y coord) of current square
+        print("DEBUG:\n    column: "+str(column)+"\n    row: "+str(row)) #debug: print squares
 
 
 
 
 
-def main(i, width):
+def main():
     '''main function
     '''
 
-    get_sudoku(5)
+    get_sudoku(9)
 
 
 if __name__ == '__main__':
-    main(10,9)
+    main()
