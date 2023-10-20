@@ -2,33 +2,61 @@ from math import fmod
 def get_sudoku(width):
 
     numSquares = width**2
-    sudoku = [None]*numSquares
+    sudoku = [[None]*3]*numSquares
     i=0
     while i in range(0,numSquares):
         column = int(fmod(i, width))+1 # finds column (x coord) of current square
         row = (i // width)+1 # finds row (y coord) of current square
         #print("DEBUG:\n    column: "+str(column)+"\n    row: "+str(row)) #debug: print squares
         try:
-            print("Enter cell "+str(i+1)+" ("+str(column)+","+str(row)+"), or type \"back\"")
+            print("Enter cell "+str(i)+" ("+str(column)+","+str(row)+"), or type \"back\"")
             value = input()
-            # TODO: add way to go back if an error is made
-            #sudoku[i] = [column, row, value]
+
+            # decide what to do with user input
             if value.isnumeric():
-                #sudoku.insert(i, [column, row, value])
-                sudoku[i] = [column, row, value]
-                i=i+1
+                # number entered: validate data and add
+                value = int(value)
+
+                # data validation...
+                if value <= width and value > 0:
+                    print("DEBUG 1")
+                    # check values in sudoku that have same column or row, and if value is the same reject it
+                    passed = True
+                    indiciesToCheck=[]
+                    for j in range(len(sudoku)):
+                        """"""
+                        if sudoku[j][0] == column or sudoku[j][1] == row:
+                            indiciesToCheck.append(j)
+                    for j in range(len(indiciesToCheck)):
+                        if sudoku[indiciesToCheck[j]][2] == value:
+                            passed = False
+                    
+                    if passed == True:
+                        # Data validation succeded
+                        sudoku[i] = [column, row, value]
+                        i=i+1
+                    else:
+                        print("error: number already exists in row/column")
+
+                            
+                        #if sudoku[][]
+                else:
+                    # data validation failed
+                    print("error, invalid number entered for cell "+str(i)+" ("+str(column)+","+str(row)+")") # TODO: permanent fix for hard coded cell id number
             elif value == "":
-                #sudoku.insert(i, [column, row, None])
+                # nothing entered: add None instead
                 sudoku[i] = [column, row, value]
                 i=i+1
             elif value == "back" and i != 0:
+                # 'back' entered: go back to previous
                 print("going back...")
                 i = i - 1
             else:
-                print("error, invalid input for cell "+str(i)+" ("+str(column)+","+str(row)+")")
+                # something else entered: try again
+                print("error 1, invalid input for cell "+str(i)+" ("+str(column)+","+str(row)+")")
 
         except:
-            print("error, invalid input for cell "+str(i)+" ("+str(column)+","+str(row)+")")
+            print("error 2, invalid input for cell "+str(i)+" ("+str(column)+","+str(row)+")")
             #i = i-1
     
     return sudoku
@@ -46,7 +74,7 @@ def main():
     '''main function
     '''
 
-    sud = get_sudoku(3)
+    sud = get_sudoku(9)
     print_sudoku(sud)
 
 
