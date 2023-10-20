@@ -1,4 +1,13 @@
 from math import fmod
+
+
+"""Since starting this project I have realized that my method of storing sudokus was needlessly complicated and needed to be rewritten
+my method was to store each cell as a list containing its x and y coordinates and its values
+these lists were then stored inside another list, which made actually accessing that information a nightmare
+
+as such i am starting a v2 which will store the board as an object, allowing way smoother access to information and
+allow me to manipulate the board via its own functions
+"""
 def get_sudoku(width):
 
     numSquares = width**2
@@ -61,10 +70,26 @@ def get_sudoku(width):
     
     return sudoku
 
+
 def print_sudoku(sudoku):
     print("printing current sudoku...")
     for i in range(len(sudoku)):
         print("("+str(sudoku[i][0])+","+str(sudoku[i][1])+") = "+str(sudoku[i][2]))
+
+def solve_sudoku(sudoku = None):
+    if sudoku == None:
+        # if no sudoku supplied, get standard 9x9 sudoku board
+        sudoku = get_sudoku(9)
+    
+    # solve sudoku
+    solved_sudoku = []
+
+
+
+
+    return solved_sudoku
+    
+
 
 
 
